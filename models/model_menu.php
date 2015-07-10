@@ -27,22 +27,20 @@ namespace extensions\menus{
         
         public function get_view($selected_item = null){
             if ($this->is_loaded){
-                $this->dom->add(new html_pre('Loaded menu'));
                 $type = new model_menu_type($this->menu_type_id);
                 if ($type->is_loaded){
-                    $this->dom->add(new html_pre('Found type'));
                     $class = $type->view;
-                    $view = new $class();
+                    $view = new $class($this->get());
                 }
                 
                 if ($view && $view instanceof \frameworks\adapt\html){
-                    for($i = 0; $i < $this->count(); $i++){
-                        $child = $this->get($i);
-                        
-                        if ($child instanceof \frameworks\adapt\model && $child->table_name == 'menu_item'){
-                            $child->get_view($view);
-                        }
-                    }
+                    //for($i = 0; $i < $this->count(); $i++){
+                    //    $child = $this->get($i);
+                    //    
+                    //    if ($child instanceof \frameworks\adapt\model && $child->table_name == 'menu_item'){
+                    //        $child->get_view($view);
+                    //    }
+                    //}
                     return $view;
                 }
                 
