@@ -27,6 +27,7 @@ namespace extensions\menus{
         
         public function get_view($selected_item = null){
             if ($this->is_loaded){
+                
                 $type = new model_menu_type($this->menu_type_id);
                 if ($type->is_loaded){
                     $class = $type->view;
@@ -41,6 +42,7 @@ namespace extensions\menus{
                     //        $child->get_view($view);
                     //    }
                     //}
+                    
                     return $view;
                 }
                 

@@ -15,6 +15,5 @@
             <bundle>roles_and_permissions</bundle>
             <bundle>bootstrap_views</bundle>
         </depends_on>
-        
     </bundle>
 </adapt_framework>
