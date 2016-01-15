@@ -1,11 +1,11 @@
 <?php
 
-namespace extensions\menus{
+namespace adapt\menus{
     
     /* Prevent direct access */
     defined('ADAPT_STARTED') or die;
     
-    class model_menu extends \frameworks\adapt\model{
+    class model_menu extends \adapt\model{
         
         public function __construct($id = null){
             parent::__construct('menu', $id);
@@ -32,18 +32,18 @@ namespace extensions\menus{
                 if ($type->is_loaded){
                     $class = $type->view;
                     $view = new $class($this->get());
-                }
                 
-                if ($view && $view instanceof \frameworks\adapt\html){
-                    //for($i = 0; $i < $this->count(); $i++){
-                    //    $child = $this->get($i);
-                    //    
-                    //    if ($child instanceof \frameworks\adapt\model && $child->table_name == 'menu_item'){
-                    //        $child->get_view($view);
-                    //    }
-                    //}
-                    
-                    return $view;
+                    if ($view && $view instanceof \adapt\html){
+                        //for($i = 0; $i < $this->count(); $i++){
+                        //    $child = $this->get($i);
+                        //    
+                        //    if ($child instanceof \frameworks\adapt\model && $child->table_name == 'menu_item'){
+                        //        $child->get_view($view);
+                        //    }
+                        //}
+                        
+                        return $view;
+                    }
                 }
                 
                 //$style = \extensions\bootstrap_views\view_form::NORMAL;

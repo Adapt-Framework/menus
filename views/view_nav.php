@@ -1,11 +1,11 @@
 <?php
 
-namespace extensions\menus{
+namespace adapt\menus{
     
     /* Prevent direct access */
     defined('ADAPT_STARTED') or die;
     
-    class view_nav extends \extensions\bootstrap_views\view_nav{
+    class view_nav extends \bootstrap\views\view_nav{
         
         public function __construct($items = array(), $selected_item = null){
             parent::__construct('navbar', $items, $selected_item);
@@ -20,20 +20,20 @@ namespace extensions\menus{
                             break;
                         case "Dropdown menu":
                             $items = $menu_item->get();
-                            $menu = new \extensions\bootstrap_views\view_dropdown($menu_item->label);
+                            $menu = new \bootstrap\views\view_dropdown($menu_item->label);
                             $this->add($menu);
                             foreach($items as $item){
                                 if (is_object($item) && $item instanceof model_menu_item_item){
                                     if (!isset($item->permission_id) || $this->session->user->has_permission($item->permission_id)){
                                         switch($item->menu_item_item_type){
                                         case "Link":
-                                            $menu->add(new \extensions\bootstrap_views\view_dropdown_menu_item($item->label, $item->link));
+                                            $menu->add(new \bootstrap\views\view_dropdown_menu_item($item->label, $item->link));
                                             break;
                                         case "Divider":
-                                            $menu->add(new \extensions\bootstrap_views\view_dropdown_divider());
+                                            $menu->add(new \bootstrap\views\view_dropdown_divider());
                                             break;
                                         case "Heading":
-                                            $menu->add(new \extensions\bootstrap_views\view_dropdown_header($item->label));
+                                            $menu->add(new \bootstrap\views\view_dropdown_header($item->label));
                                             break;
                                         case "Custom view":
                                             //TODO:

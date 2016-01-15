@@ -1,19 +1,251 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <adapt_framework>
     <bundle>
-        <label>Menus</label>
+        <label>Adapt Menus</label>
         <name>menus</name>
         <version>1.0.0</version>
         <type>extension</type>
-        <namespace>/extensions/menus</namespace>
+        <namespace>\adapt\menus</namespace>
         <description>Provides rich menus.</description>
         <copyright>2015 Adapt Framework</copyright>
         <license>MIT</license>
         <website>http://www.adaptframework.com/documentation/extensions/menus</website>
         <depends_on>
-            <bundle>advanced_data_types</bundle>
-            <bundle>roles_and_permissions</bundle>
-            <bundle>bootstrap_views</bundle>
+            <bundle>
+                <name>advanced_data_types</name>
+                <version>1.0</version>
+            </bundle>
+            <bundle>
+                <name>roles_and_permissions</name>
+                <version>1.0</version>
+            </bundle>
+            <bundle>
+                <name>bootstrap_views</name>
+                <version>1.0</version>
+            </bundle>
         </depends_on>
+        <schema>
+            <add>
+                <table name="menu_type">
+                    <field name="menu_type_id" key="primary" auto-increment="Yes">
+                        <data_type>bigint</data_type>
+                        <label>Menu type #</label>
+                    </field>
+                    <field name="bundle_version_id" key="foreign" referenced-table-name="bundle_version" referenced-field-name="bundle_version_id">
+                        <data_type>bigint</data_type>
+                        <label>Bundle</label>
+                    </field>
+                    <field name="view">
+                        <data_type>varchar</data_type>
+                        <max_length>512</max_length>
+                        <nullable>No</nullable>
+                        <label>Custom view</label>
+                    </field>
+                    <field name="name" index="Yes" index-size="32">
+                        <data_type>varchar</data_type>
+                        <max_length>64</max_length>
+                        <nullable>No</nullable>
+                        <label>Name</label>
+                    </field>
+                    <field name="label">
+                        <data_type>varchar</data_type>
+                        <max_length>128</max_length>
+                        <nullable>No</nullable>
+                        <label>Label</label>
+                    </field>
+                    <field name="description">
+                        <data_type>text</data_type>
+                        <label>Description</label>
+                    </field>
+                    <record>
+                        <view>\adapt\menus\view_tabs</view>
+                        <name>bs_tabs</name>
+                        <label>Tabs</label>
+                        <description>Tabs using Bootstrap</description>
+                    </record>
+                    <record>
+                        <view>\adapt\menus\view_justified_tabs</view>
+                        <name>bs_justified_tabs</name>
+                        <label>Justified tabs</label>
+                        <description>Justified tabs using Bootstrap</description>
+                    </record>
+                    <record>
+                        <view>\adapt\menus\view_pills</view>
+                        <name>bs_pills</name>
+                        <label>Pills</label>
+                        <description>Pills using Bootstrap</description>
+                    </record>
+                    <record>
+                        <view>\adapt\menus\view_stacked_pills</view>
+                        <name>bs_stacked_pills</name>
+                        <label>Stacked Pills</label>
+                        <description>Statcked pills using Bootstrap</description>
+                    </record>
+                    <record>
+                        <view>\adapt\menus\view_justified_pills</view>
+                        <name>bs_justified_pills</name>
+                        <label>Justified pills</label>
+                        <description>Justified pills using Bootstrap</description>
+                    </record>
+                    <record>
+                        <view>\adapt\menus\view_navbar</view>
+                        <name>bs_navbar</name>
+                        <label>Navigation bar</label>
+                        <description>Bootstrap navigation bar</description>
+                    </record>
+                    <record>
+                        <view>\adapt\menus\view_nav</view>
+                        <name>bs_navbar_nav</name>
+                        <label>Navigation bar (Inner nav)</label>
+                        <description>Bootstrap navigation bar (Inner nav only)</description>
+                    </record>
+                    <record>
+                        <view>\adapt\menus\view_pipe</view>
+                        <name>pipe</name>
+                        <label>Pipe separated menu</label>
+                        <description>Simple pipe separated menu</description>
+                    </record>
+                </table>
+                <table name="menu">
+                    <field name="menu_id" key="primary" auto-increment="Yes">
+                        <data_type>bigint</data_type>
+                        <label>Menu #</label>
+                    </field>
+                    <field name="menu_type_id" key="foreign" referenced-table-name="menu_type" referenced-field-name="menu_type_id">
+                        <data_type>bigint</data_type>
+                        <lookup_table>menu_type</lookup_table>
+                        <nullable>No</nullable>
+                        <label>Menu type</label>
+                    </field>
+                    <field name="bundle_version_id" key="foreign" referenced-table-name="bundle_version" referenced-field-name="bundle_version_id">
+                        <data_type>bigint</data_type>
+                        <label>Bundle</label>
+                    </field>
+                    <field name="permission_id" key="foreign" referenced-table-name="permission" referenced-field-name="permission_id">
+                        <data_type>bigint</data_type>
+                        <lookup_table>permission</lookup_table>
+                        <label>Permission</label>
+                    </field>
+                    <field name="name" index="Yes" index-size="32">
+                        <data_type>varchar</data_type>
+                        <max_length>64</max_length>
+                        <nullable>No</nullable>
+                        <label>Name</label>
+                    </field>
+                    <field name="label">
+                        <data_type>varchar</data_type>
+                        <max_length>128</max_length>
+                        <nullable>No</nullable>
+                        <label>Label</label>
+                    </field>
+                    <field name="description">
+                        <data_type>text</data_type>
+                        <label>Description</label>
+                    </field>
+                </table>
+                <table name="menu_item">
+                    <field name="menu_item_id" key="primary" auto-increment="Yes">
+                        <data_type>bigint</data_type>
+                        <label>Menu item #</label>
+                    </field>
+                    <field name="menu_id" key="foreign" referenced-table-name="menu" referenced-field-name="menu_id">
+                        <data_type>bigint</data_type>
+                        <nullable>No</nullable>
+                        <label>Menu #</label>
+                    </field>
+                    <field name="bundle_version_id" key="foreign" referenced-table-name="bundle_version" referenced-field-name="bundle_version_id">
+                        <data_type>bigint</data_type>
+                        <label>Bundle</label>
+                    </field>
+                    <field name="menu_item_type">
+                        <data_type>enum('Link', 'Dropdown menu', 'Custom view')</data_type>
+                        <default_value>Link</default_value>
+                        <nullable>No</nullable>
+                        <label>Type</label>
+                    </field>
+                    <field name="permission_id" key="foreign" referenced-table-name="permission" referenced-field-name="permission_id">
+                        <data_type>bigint</data_type>
+                        <lookup_table>permission</lookup_table>
+                        <label>Permission</label>
+                    </field>
+                    <field name="custom_view">
+                        <data_type>varchar</data_type>
+                        <max_length>512</max_length>
+                        <label>Custom view</label>
+                    </field>
+                    <field name="link">
+                        <data_type>varchar</data_type>
+                        <max_length>256</max_length>
+                        <label>Link</label>
+                    </field>
+                    <field name="name" index="Yes" index-size="32">
+                        <data_type>varchar</data_type>
+                        <max_length>64</max_length>
+                        <nullable>No</nullable>
+                        <label>Name</label>
+                    </field>
+                    <field name="label">
+                        <data_type>varchar</data_type>
+                        <max_length>128</max_length>
+                        <nullable>No</nullable>
+                        <label>Label</label>
+                    </field>
+                    <field name="description">
+                        <data_type>text</data_type>
+                        <label>Description</label>
+                    </field>
+                </table>
+                <table name="menu_item_item">
+                    <field name="menu_item_item_id" key="primary" auto-increment="Yes">
+                        <data_type>bigint</data_type>
+                        <label>Sub menu item #</label>
+                    </field>
+                    <field name="menu_item_id" key="foreign" referenced-table-name="menu_item" referenced-field-name="menu_item_id">
+                        <data_type>bigint</data_type>
+                        <nullable>No</nullable>
+                        <label>Menu item #</label>
+                    </field>
+                    <field name="bundle_version_id" key="foreign" referenced-table-name="bundle_version" referenced-field-name="bundle_version_id">
+                        <data_type>bigint</data_type>
+                        <label>Bundle</label>
+                    </field>
+                    <field name="menu_item_item_type">
+                        <data_type>enum('Link', 'Divider', 'Heading', 'Custom view')</data_type>
+                        <default_value>Link</default_value>
+                        <nullable>No</nullable>
+                        <label>Type</label>
+                    </field>
+                    <field name="permission_id" key="foreign" referenced-table-name="permission" referenced-field-name="permission_id">
+                        <data_type>bigint</data_type>
+                        <lookup_table>permission</lookup_table>
+                        <label>Permission</label>
+                    </field>
+                    <field name="custom_view">
+                        <data_type>varchar</data_type>
+                        <max_length>512</max_length>
+                        <label>Custom view</label>
+                    </field>
+                    <field name="link">
+                        <data_type>varchar</data_type>
+                        <max_length>256</max_length>
+                        <label>Link</label>
+                    </field>
+                    <field name="priority">
+                        <data_type>int</data_type>
+                        <label>Priority</label>
+                    </field>
+                    <field name="label">
+                        <data_type>varchar</data_type>
+                        <max_length>128</max_length>
+                        <nullable>No</nullable>
+                        <label>Label</label>
+                    </field>
+                    <field name="description">
+                        <data_type>text</data_type>
+                        <label>Description</label>
+                    </field>
+                </table>
+            </add>
+        </schema>
     </bundle>
 </adapt_framework>
