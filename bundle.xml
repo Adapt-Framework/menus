@@ -23,6 +23,10 @@
                 <name>bootstrap_views</name>
                 <version>1.0</version>
             </bundle>
+            <bundle>
+                <name>adapt</name>
+                <version>2.0</version>
+            </bundle>
         </depends_on>
         <schema>
             <add>
@@ -31,8 +35,9 @@
                         <data_type>bigint</data_type>
                         <label>Menu type #</label>
                     </field>
-                    <field name="bundle_version_id" key="foreign" referenced-table-name="bundle_version" referenced-field-name="bundle_version_id">
-                        <data_type>bigint</data_type>
+                    <field name="bundle_name">
+                        <data_type>varchar</data_type>
+                        <max_length>64</max_length>
                         <label>Bundle</label>
                     </field>
                     <field name="view">
@@ -114,11 +119,11 @@
                     <field name="menu_type_id" key="foreign" referenced-table-name="menu_type" referenced-field-name="menu_type_id">
                         <data_type>bigint</data_type>
                         <lookup_table>menu_type</lookup_table>
-                        <nullable>No</nullable>
                         <label>Menu type</label>
                     </field>
-                    <field name="bundle_version_id" key="foreign" referenced-table-name="bundle_version" referenced-field-name="bundle_version_id">
-                        <data_type>bigint</data_type>
+                    <field name="bundle_name">
+                        <data_type>varchar</data_type>
+                        <max_length>64</max_length>
                         <label>Bundle</label>
                     </field>
                     <field name="permission_id" key="foreign" referenced-table-name="permission" referenced-field-name="permission_id">
@@ -129,7 +134,6 @@
                     <field name="name" index="Yes" index-size="32">
                         <data_type>varchar</data_type>
                         <max_length>64</max_length>
-                        <nullable>No</nullable>
                         <label>Name</label>
                     </field>
                     <field name="label">
@@ -150,11 +154,11 @@
                     </field>
                     <field name="menu_id" key="foreign" referenced-table-name="menu" referenced-field-name="menu_id">
                         <data_type>bigint</data_type>
-                        <nullable>No</nullable>
                         <label>Menu #</label>
                     </field>
-                    <field name="bundle_version_id" key="foreign" referenced-table-name="bundle_version" referenced-field-name="bundle_version_id">
-                        <data_type>bigint</data_type>
+                    <field name="bundle_name">
+                        <data_type>varchar</data_type>
+                        <max_length>64</max_length>
                         <label>Bundle</label>
                     </field>
                     <field name="menu_item_type">
@@ -162,6 +166,10 @@
                         <default_value>Link</default_value>
                         <nullable>No</nullable>
                         <label>Type</label>
+                    </field>
+                    <field name="priority">
+                        <data_type>int</data_type>
+                        <label>Priority</label>
                     </field>
                     <field name="permission_id" key="foreign" referenced-table-name="permission" referenced-field-name="permission_id">
                         <data_type>bigint</data_type>
@@ -181,13 +189,21 @@
                     <field name="name" index="Yes" index-size="32">
                         <data_type>varchar</data_type>
                         <max_length>64</max_length>
-                        <nullable>No</nullable>
                         <label>Name</label>
+                    </field>
+                    <field name="icon_class">
+                        <data_type>varchar</data_type>
+                        <max_length>512</max_length>
+                        <label>Icon class</label>
+                    </field>
+                    <field name="icon_name">
+                        <data_type>varchar</data_type>
+                        <max_length>128</max_length>
+                        <label>Icon name</label>
                     </field>
                     <field name="label">
                         <data_type>varchar</data_type>
                         <max_length>128</max_length>
-                        <nullable>No</nullable>
                         <label>Label</label>
                     </field>
                     <field name="description">
@@ -202,11 +218,11 @@
                     </field>
                     <field name="menu_item_id" key="foreign" referenced-table-name="menu_item" referenced-field-name="menu_item_id">
                         <data_type>bigint</data_type>
-                        <nullable>No</nullable>
                         <label>Menu item #</label>
                     </field>
-                    <field name="bundle_version_id" key="foreign" referenced-table-name="bundle_version" referenced-field-name="bundle_version_id">
-                        <data_type>bigint</data_type>
+                    <field name="bundle_name">
+                        <data_type>varchar</data_type>
+                        <max_length>64</max_length>
                         <label>Bundle</label>
                     </field>
                     <field name="menu_item_item_type">
@@ -234,10 +250,19 @@
                         <data_type>int</data_type>
                         <label>Priority</label>
                     </field>
+                    <field name="icon_class">
+                        <data_type>varchar</data_type>
+                        <max_length>512</max_length>
+                        <label>Icon class</label>
+                    </field>
+                    <field name="icon_name">
+                        <data_type>varchar</data_type>
+                        <max_length>128</max_length>
+                        <label>Icon name</label>
+                    </field>
                     <field name="label">
                         <data_type>varchar</data_type>
                         <max_length>128</max_length>
-                        <nullable>No</nullable>
                         <label>Label</label>
                     </field>
                     <field name="description">
